@@ -147,7 +147,7 @@ public class TwitterInfluential {
 		@Override
 		public int getPartition(CompositeKey key, CompositeValue value, int num) {
 			int hash = key.pair.first.hashCode();
-			return hash % num;
+			return Math.abs(hash) % num;
 		}
 		
 	}
