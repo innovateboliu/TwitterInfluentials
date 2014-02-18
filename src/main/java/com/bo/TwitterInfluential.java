@@ -44,6 +44,7 @@ public class TwitterInfluential {
 	private static class CompositeKey implements WritableComparable<CompositeKey>{
 		Pair<String, Long> pair;
 		
+		public CompositeKey() {}
 		public CompositeKey(String userName, Long tweetId) {
 			this.pair = new Pair<String, Long>(userName, tweetId);
 		}
