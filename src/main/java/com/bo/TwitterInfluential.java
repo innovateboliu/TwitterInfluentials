@@ -143,7 +143,6 @@ public class TwitterInfluential {
 		}
 	}
 	
-<<<<<<< HEAD
 	public static class CompositeKeyPartitioner extends Partitioner<CompositeKey, IntWritable> {
 		@Override
 		public int getPartition(CompositeKey key, IntWritable value, int num) {
@@ -155,11 +154,6 @@ public class TwitterInfluential {
 	
 	//output top K user and his/her retweet count
 	public static class RetweetMaxRankReducer extends Reducer<CompositeKey, CompositeValue, Text, IntWritable> {
-		
-=======
-	public static class TwitterReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
-
->>>>>>> 90de3123d5991c8b404583aa7b04be01d23466b2
 		private PriorityQueue<Pair<String, Integer>> pq;
 		
 		@Override
@@ -258,13 +252,8 @@ public class TwitterInfluential {
 		initialJob.setOutputKeyClass(Text.class);
 		initialJob.setOutputValueClass(IntWritable.class);
 
-<<<<<<< HEAD
 		initialJob.setMapperClass(RetweetCountMapper.class);
 		initialJob.setReducerClass(RetweetMaxRankReducer.class);
-=======
-		initialJob.setMapperClass(TwitterInitialMapper.class);
-		initialJob.setReducerClass(TwitterReducer.class);
->>>>>>> 90de3123d5991c8b404583aa7b04be01d23466b2
 
 		initialJob.setInputFormatClass(TextInputFormat.class);
 		initialJob.setOutputFormatClass(TextOutputFormat.class);
@@ -291,13 +280,8 @@ public class TwitterInfluential {
 		finalJob.setOutputKeyClass(Text.class);
 		finalJob.setOutputValueClass(IntWritable.class);
 
-<<<<<<< HEAD
 		finalJob.setMapperClass(FinalRankingMapper.class);
 		finalJob.setReducerClass(FinalRankingReducer.class);
-=======
-		finalJob.setMapperClass(TwitterFinalMapper.class);
-		finalJob.setReducerClass(TwitterReducer.class);
->>>>>>> 90de3123d5991c8b404583aa7b04be01d23466b2
 
 		finalJob.setInputFormatClass(TextInputFormat.class);
 		finalJob.setOutputFormatClass(TextOutputFormat.class);
