@@ -211,7 +211,7 @@ public class TwitterInfluential {
 		}
 	}
 	
-	public static class FinalRankingReducer extends Reducer<Pair<String, Integer>, IntWritable, Text, IntWritable> {
+	public static class FinalRankingReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
 		private PriorityQueue<Pair<String, Integer>> pq;
 		
@@ -225,12 +225,12 @@ public class TwitterInfluential {
 		}
 		
 		@Override
-		public void reduce(Pair<String, Integer> compositeKey, Iterable<IntWritable> values, Context context)  throws IOException, InterruptedException{
+		public void reduce(Text key, Iterable<IntWritable> values, Context context)  throws IOException, InterruptedException{
 			int sum = 0;
 			for (IntWritable value : values) {
 				sum += value.get();
 			}
-			pq.add(new Pair<String, Integer>(compositeKey.first.toString(), sum));
+			pq.add(new Pair<String, Integer>(key.toString(), sum));
 			if (pq.size() > K) {
 				pq.remove();
 			}
