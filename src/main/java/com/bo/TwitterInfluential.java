@@ -41,7 +41,7 @@ public class TwitterInfluential {
 		}
 	}
 	
-	private static class CompositeKey implements WritableComparable<Pair<String, Long>>{
+	private static class CompositeKey implements WritableComparable<CompositeKey>{
 		Pair<String, Long> pair;
 		
 		public CompositeKey(String userName, Long tweetId) {
@@ -61,12 +61,12 @@ public class TwitterInfluential {
 		}
 
 		@Override
-		public int compareTo(Pair<String, Long> o) {
-			int diff = this.pair.first.compareTo(o.first);
+		public int compareTo(CompositeKey o) {
+			int diff = this.pair.first.compareTo(o.pair.first);
 			if (diff != 0) {
 				return diff;
 			}
-			return this.pair.second.compareTo(o.second);
+			return this.pair.second.compareTo(o.pair.second);
 		}
 		
 	}
