@@ -56,7 +56,7 @@ public class TwitterInfluential {
 		}
 	}
 	
-	public static class TwitterInitialReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+	public static class TwitterReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
 		private PriorityQueue<Pair<String, Integer>> pq;
 		
@@ -109,7 +109,7 @@ public class TwitterInfluential {
 		initialJob.setOutputValueClass(IntWritable.class);
 
 		initialJob.setMapperClass(TwitterInitialMapper.class);
-		initialJob.setReducerClass(TwitterInitialReducer.class);
+		initialJob.setReducerClass(TwitterReducer.class);
 
 		initialJob.setInputFormatClass(TextInputFormat.class);
 		initialJob.setOutputFormatClass(TextOutputFormat.class);
@@ -134,7 +134,7 @@ public class TwitterInfluential {
 		finalJob.setOutputValueClass(IntWritable.class);
 
 		finalJob.setMapperClass(TwitterFinalMapper.class);
-		finalJob.setReducerClass(TwitterInitialReducer.class);
+		finalJob.setReducerClass(TwitterReducer.class);
 
 		finalJob.setInputFormatClass(TextInputFormat.class);
 		finalJob.setOutputFormatClass(TextOutputFormat.class);
