@@ -173,7 +173,7 @@ public class TwitterInfluential {
 		}
 		
 		@Override
-		public void reduce(CompositeKey key, Iterable<CompositeValue> values, Context context) {
+		public void reduce(CompositeKey key, Iterable<CompositeValue> values, Context context)  throws IOException, InterruptedException {
 			int maxRetweetCount = 0;
 			int count = 0;
 			CompositeValue preValue = new CompositeValue();
@@ -189,18 +189,19 @@ public class TwitterInfluential {
 			}
 			count += maxRetweetCount;
 			
-			pq.add(new Pair<String, Integer>(key.pair.first, count));
-			if (pq.size() > K) {
-				pq.remove();
-			}
+			context.write(new Text(key.pair.first), new IntWritable(count));
+//			pq.add(new Pair<String, Integer>(key.pair.first, count));
+//			if (pq.size() > K) {
+//				pq.remove();
+//			}
 		}
 		
-		@Override
-		public void cleanup(Context context) throws IOException, InterruptedException {
-			for (Pair<String, Integer> pair : pq) {
-				context.write(new Text(pair.first), new IntWritable(pair.second));
-			}
-		}
+//		@Override
+//		public void cleanup(Context context) throws IOException, InterruptedException {
+//			for (Pair<String, Integer> pair : pq) {
+//				context.write(new Text(pair.first), new IntWritable(pair.second));
+//			}
+//		}
 	}
 	
 	public static class FinalRankingMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
