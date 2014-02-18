@@ -96,6 +96,9 @@ public class TwitterInfluential {
 	}
 
 	public static class CompositeKeyComparator extends WritableComparator {
+		protected CompositeKeyComparator() {
+			super(CompositeKey.class, true);
+		}
 		@Override
 		public int compare(Object l, Object r) {
 			CompositeKey a = (CompositeKey)l;
@@ -110,6 +113,9 @@ public class TwitterInfluential {
 	}
 	
 	public static class CompositeKeyGroupingComparator extends WritableComparator {
+		protected CompositeKeyGroupingComparator() {
+			super(CompositeKey.class, true);
+		}
 		@Override
 		public int compare(Object l, Object r) {
 			CompositeKey a = (CompositeKey)l;
