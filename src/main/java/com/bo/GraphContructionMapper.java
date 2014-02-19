@@ -26,8 +26,9 @@ public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Tex
 	@Override
 	public void setup(Context context) throws IOException {
 		URI[] cacheFileUris = context.getCacheFiles();
-		System.out.println("!!!!!!!!!!!!!!!!!!!! file uri is "+cacheFileUris[0]);
 		buildCache(cacheFileUris);
+		System.out.println("!!!!!!!!!!!!!!!!!!!! set is "+ desiredScreenNames.toString());
+
 	}
 	
 	private void buildCache(URI[] cacheFileUris) throws IOException {
@@ -38,10 +39,7 @@ public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Tex
 				reader = new BufferedReader(new InputStreamReader(fs.open(new Path(uri))));
 				String line;
 				while ((line = reader.readLine()) != null) {
-					System.out.println("!!!!!!!!!!!!!!!!!!!! line is "+line);
-
 					String content[] = line.split("\\s");
-					System.out.println("!!!!!!!!!!!!!!!!!!!! name is "+content[0]);
 					desiredScreenNames.add(content[0].trim());
 				}
 			} catch (FileNotFoundException e) {
