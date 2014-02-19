@@ -48,7 +48,7 @@ public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Tex
 				e.printStackTrace();
 			} finally {
 				if (reader != null) {
-					reader.close();
+					reader.close(); 
 				}
 			}
 		}
