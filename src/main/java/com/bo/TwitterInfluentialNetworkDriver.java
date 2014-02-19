@@ -38,8 +38,8 @@ public class TwitterInfluentialNetworkDriver {
 		initialJob.setMapOutputValueClass(Text.class);
 
 		
-		FileInputFormat.setInputPaths(initialJob, new Path(args[1]));
-		FileOutputFormat.setOutputPath(initialJob, new Path(args[2]));
+		FileInputFormat.setInputPaths(initialJob, new Path(args[0]));
+		FileOutputFormat.setOutputPath(initialJob, new Path(args[1]));
 		
 		initialJob.setNumReduceTasks(3);
 		
