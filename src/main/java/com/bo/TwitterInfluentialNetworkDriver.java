@@ -23,7 +23,7 @@ public class TwitterInfluentialNetworkDriver {
 		
 		initialJob.addCacheFile(new URI(args[0]));
 		initialJob.setJarByClass(TwitterInfluentialNetworkDriver.class);
-
+		
 		
 		initialJob.setOutputKeyClass(Text.class);
 		initialJob.setOutputValueClass(Text.class);
