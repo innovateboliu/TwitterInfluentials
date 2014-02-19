@@ -1,5 +1,6 @@
 package com.bo;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public class GraphContructionReducer extends Reducer<Text, Text, Text, Text>{
 	}
 	
 	@Override
-	public void reduce(Text key, Iterable<Text> values, Context context) {
+	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException{
 		for (Text value : values) {
 			set.add(value.toString());
 		}
@@ -31,7 +32,9 @@ public class GraphContructionReducer extends Reducer<Text, Text, Text, Text>{
 			neighbors.deleteCharAt(neighbors.length()-1);
 		}
 		
-		neighbors.insert(0, key.toString()+":");
+		neighbors.insert(0, ":");
+		
+		context.write(key, new Text(neighbors.toString()));
 	}
 	
 	@Override
