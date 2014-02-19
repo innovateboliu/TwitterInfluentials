@@ -60,15 +60,11 @@ public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Tex
 			Status status = DataObjectFactory.createStatus(value.toString());
 			String name = status.getUser().getScreenName();
 			Status retweet = status.getRetweetedStatus();
-//			if (retweet != null && desiredScreenNames.contains(name)) {
-//				String originalName = retweet.getUser().getScreenName();
-//				if (desiredScreenNames.contains(originalName)) {
-//					context.write(new Text(name), new Text(originalName));
-//				}
-//			}
-			if (retweet != null) {
+			if (retweet != null && desiredScreenNames.contains(name)) {
 				String originalName = retweet.getUser().getScreenName();
-				context.write(new Text(name), new Text(originalName));
+				if (desiredScreenNames.contains(originalName)) {
+					context.write(new Text(name), new Text(originalName));
+				}
 			}
 		} catch (TwitterException e) {
 			e.printStackTrace();
