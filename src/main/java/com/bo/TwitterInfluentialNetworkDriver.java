@@ -21,7 +21,7 @@ public class TwitterInfluentialNetworkDriver {
 
 		Job initialJob = Job.getInstance();
 		
-		initialJob.addCacheFile(new URI("twitter/influential/topnames"));
+		initialJob.addCacheFile(new URI("/user/hduser/twitter/influential/topnames"));
 		initialJob.setJarByClass(TwitterInfluentialNetworkDriver.class);
 		
 		
