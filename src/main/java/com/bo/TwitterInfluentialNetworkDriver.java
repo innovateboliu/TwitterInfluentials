@@ -14,10 +14,10 @@ public class TwitterInfluentialNetworkDriver {
 
 	
 	public static void main(String[] args) throws Exception {
-		if (args.length != 3) {
-			System.out.println("usage: [cacheFile] [input] [output]");
-			System.exit(-1);
-		}
+//		if (args.length != 3) {
+//			System.out.println("usage: [cacheFile] [input] [output]");
+//			System.exit(-1);
+//		}
 
 		Job initialJob = Job.getInstance();
 		
