@@ -1,4 +1,4 @@
-package com.bo;
+package com.bo.ranking.network;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -29,5 +29,10 @@ public class NameScoreKey implements WritableComparable<NameScoreKey>{
 	@Override
 	public int compareTo(NameScoreKey o) {
 		return name.compareTo(o.name);
+	}
+	
+	@Override
+	public String toString() {
+		return this.name+":"+this.score;
 	}
 }

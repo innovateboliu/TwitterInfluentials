@@ -1,4 +1,4 @@
-package com.bo;
+package com.bo.ranking.network;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.Set;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class GraphContructionReducer extends Reducer<Text, Text, NameScoreKey, Text>{
+public class NetworkContructionReducer extends Reducer<Text, Text, NameScoreKey, Text>{
 	
 	private Set<String> set;
 	
