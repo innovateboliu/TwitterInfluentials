@@ -13,7 +13,6 @@ public class NetworkRankMapper extends Mapper<LongWritable, Text, Text, Text> {
 			throws IOException, InterruptedException {
 		String[] tokens = value.toString().split("\\s");
 		String[] tmp = tokens[0].split(":");
-		String from = tmp[0];
 		float score = Float.parseFloat(tmp[1]);
 
 		int numTo = tokens.length - 1;
