@@ -25,7 +25,7 @@ public class TwitterInfluentialNetworkDriver {
 		initialJob.setJarByClass(TwitterInfluentialNetworkDriver.class);
 		
 		
-		initialJob.setOutputKeyClass(Text.class);
+		initialJob.setOutputKeyClass(NameScoreKey.class);
 		initialJob.setOutputValueClass(Text.class);
 
 		initialJob.setMapperClass(GraphContructionMapper.class);

@@ -7,7 +7,7 @@ import java.util.Set;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class GraphContructionReducer extends Reducer<Text, Text, Text, Text>{
+public class GraphContructionReducer extends Reducer<Text, Text, NameScoreKey, Text>{
 	
 	private Set<String> set;
 	
@@ -32,9 +32,10 @@ public class GraphContructionReducer extends Reducer<Text, Text, Text, Text>{
 //			neighbors.deleteCharAt(neighbors.length()-1);
 //		}
 //		
-		to.insert(0, ":1,");
+//		to.insert(0, ":1");
 		
-		context.write(key, new Text(to.toString()));
+		
+		context.write(new NameScoreKey(key.toString(), 1), new Text(to.toString()));
 	}
 	
 	@Override
