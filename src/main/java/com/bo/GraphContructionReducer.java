@@ -22,19 +22,19 @@ public class GraphContructionReducer extends Reducer<Text, Text, Text, Text>{
 			set.add(value.toString());
 		}
 		
-		StringBuilder neighbors = new StringBuilder();
+		StringBuilder to = new StringBuilder();
 		
 		for (String str : set) {
-			neighbors.append(str).append(",");
+			to.append(",").append(str);
 		}
 		
-		if (neighbors.length() > 0) {
-			neighbors.deleteCharAt(neighbors.length()-1);
-		}
+//		if (neighbors.length() > 0) {
+//			neighbors.deleteCharAt(neighbors.length()-1);
+//		}
+//		
+		to.insert(0, ":1,");
 		
-		neighbors.insert(0, ":");
-		
-		context.write(key, new Text(neighbors.toString()));
+		context.write(key, new Text(to.toString()));
 	}
 	
 	@Override
