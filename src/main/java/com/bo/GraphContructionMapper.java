@@ -27,6 +27,7 @@ public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Tex
 	public void setup(Context context) throws IOException {
 		URI[] cacheFileUris = context.getCacheFiles();
 		buildCache(cacheFileUris);
+		System.out.println("!!!!!!!!!!!!!!!!!!!! desiredScreenNames are "+ desiredScreenNames);
 	}
 	
 	private void buildCache(URI[] cacheFileUris) throws IOException {
@@ -65,7 +66,11 @@ public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Tex
 				String originalName = retweet.getUser().getScreenName();
 				System.out.println("!!!!!!!!!!!!!!!!!!!! retweet user is "+ originalName);
 				if  (desiredScreenNames.contains(name)) {
+					System.out.println("!!!!!!!!!!!!!!!!!!!! contain user name ");
+
 					if (desiredScreenNames.contains(originalName)) {
+						System.out.println("!!!!!!!!!!!!!!!!!!!! contain both ");
+
 						context.write(new Text(name), new Text(originalName));
 					}
 				}
