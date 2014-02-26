@@ -11,12 +11,12 @@ public class PageRankMapper extends Mapper<LongWritable, Text, Text, Text> {
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
-		String[] tokens = value.toString().split("\\s");
+		String[] tokens = value.toString().split("\\s+");
 		String[] tos = null;
 		System.out.println("tokens " + tokens);
 		
-		if (tokens.length == 3) {
-			tos = tokens[2].split(",");
+		if (tokens.length == 2) {
+			tos = tokens[1].split(",");
 			System.out.println("tos " + tokens);
 
 		} else {
