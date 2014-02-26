@@ -1,4 +1,4 @@
-package com.bo.ranking.retweetcount;
+package ranking.retweetcount;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableUtils;
 
-import com.bo.ranking.retweetcount.TwitterInfluentialRetweetCountDriver.CompositeKey;
+import ranking.retweetcount.TwitterInfluentialRetweetCountDriver.CompositeKey;
 
 public class CompositeKey implements WritableComparable<CompositeKey>{
 	Pair<String, Long> pair;

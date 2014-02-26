@@ -1,4 +1,4 @@
-package com.bo.ranking.retweetcount;
+package ranking.retweetcount;
 
 public class  Pair<T, V> {
 	protected T first;

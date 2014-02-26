@@ -1,4 +1,4 @@
-package com.bo.ranking.retweetcount;
+package ranking.retweetcount;
 
 import org.apache.hadoop.mapreduce.Partitioner;
 

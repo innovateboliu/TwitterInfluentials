@@ -99,7 +99,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>com.bo.TwitterInfluential</mainClass>
+            <mainClass>ranking.retweetcount.TwitterInfluentialRetweetCountDriver</mainClass>
           </manifest>
         </archive>
         <descriptorRefs>
@@ -115,7 +115,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>com.bo.TwitterInfluentialNetworkDriver</mainClass>
+            <mainClass>ranking.pagerank.TwitterInfluentialPageRankDriver</mainClass>
           </manifest>
         </archive>
         <descriptorRefs>

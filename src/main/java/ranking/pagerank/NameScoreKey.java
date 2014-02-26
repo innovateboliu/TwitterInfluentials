@@ -1,4 +1,4 @@
-package com.bo.ranking.pagerank;
+package ranking.pagerank;
 
 import java.io.DataInput;
 import java.io.DataOutput;
