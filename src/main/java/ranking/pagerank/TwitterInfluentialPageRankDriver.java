@@ -39,7 +39,7 @@ public class TwitterInfluentialPageRankDriver {
 		initialJob.setMapOutputValueClass(Text.class);
 		
 		FileInputFormat.setInputPaths(initialJob, new Path("twitter/influential/Flume*"));
-		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/ranking/iteration_0"));
+		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/pagerank/iteration_0"));
 		
 		boolean b = initialJob.waitForCompletion(true);
 		if (!b) {
@@ -59,8 +59,8 @@ public class TwitterInfluentialPageRankDriver {
 			iterativeJob.setReducerClass(PageRankReducer.class);
 			iterativeJob.setJarByClass(TwitterInfluentialPageRankDriver.class);
 			
-			Path in = new Path("twitter/influential/ranking/iteration_" + (iteration - 1) + "/part*");
-			Path out = new Path("twitter/influential/ranking/iteration_" + iteration);
+			Path in = new Path("twitter/influential/pagerank/iteration_" + (iteration - 1) + "/part*");
+			Path out = new Path("twitter/influential/pagerank/iteration_" + iteration);
 
 			iterativeJob.setInputFormatClass(TextInputFormat.class);
 			iterativeJob.setOutputFormatClass(TextOutputFormat.class);
