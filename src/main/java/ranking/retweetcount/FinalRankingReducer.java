@@ -7,7 +7,6 @@ import java.util.PriorityQueue;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.Reducer.Context;
 
 public class FinalRankingReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
