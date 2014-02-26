@@ -12,10 +12,18 @@ public class PageRankMapper extends Mapper<LongWritable, Text, Text, Text> {
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		String[] tokens = value.toString().split("\\s");
+		String[] tos = null;
+		
+		if (tokens.length == 3) {
+			tos = tokens[2].split(",");
+		} else {
+			return;
+		}
+		
 		String[] tmp = tokens[0].split(":");
 		float score = Float.parseFloat(tmp[1]);
 
-		int numTo = tokens.length - 1;
+		int numTo = tos.length - 1;
 
 		if (numTo < 1) {
 			return;
