@@ -31,8 +31,8 @@ public class PageRankMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 		float val = score / numTo;
 
-		for (int i = 1; i < tokens.length; i++) {
-			context.write(new Text(tokens[i]), new Text(Float.toString(val)));
+		for (int i = 1; i < tos.length; i++) {
+			context.write(new Text(tos[i]), new Text(Float.toString(val)));
 		}
 
 	}
