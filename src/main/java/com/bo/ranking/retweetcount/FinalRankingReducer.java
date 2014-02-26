@@ -15,7 +15,7 @@ public class FinalRankingReducer extends Reducer<Text, IntWritable, Text, IntWri
 	
 	@Override 
 	public void setup(Context context){
-		pq = new PriorityQueue<Pair<String,Integer>>(TwitterInfluentialDriver.K, new Comparator<Pair<String,Integer>>(){
+		pq = new PriorityQueue<Pair<String,Integer>>(TwitterInfluentialRetweetCountDriver.K, new Comparator<Pair<String,Integer>>(){
 			public int compare(Pair<String, Integer> f1, Pair<String, Integer> f2) {  
                 return f1.second - f2.second;  
             }
@@ -29,7 +29,7 @@ public class FinalRankingReducer extends Reducer<Text, IntWritable, Text, IntWri
 			sum += value.get();
 		}
 		pq.add(new Pair<String, Integer>(key.toString(), sum));
-		if (pq.size() > TwitterInfluentialDriver.K) {
+		if (pq.size() > TwitterInfluentialRetweetCountDriver.K) {
 			pq.remove();
 		}
 	}

@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class TwitterInfluentialDriver {
+public class TwitterInfluentialRetweetCountDriver {
 	
 	protected static final int K = 20;
 	
@@ -23,7 +23,7 @@ public class TwitterInfluentialDriver {
 
 		Job initialJob = Job.getInstance(new Configuration());
 		
-		initialJob.setJarByClass(TwitterInfluentialDriver.class);
+		initialJob.setJarByClass(TwitterInfluentialRetweetCountDriver.class);
 
 		
 		initialJob.setOutputKeyClass(Text.class);
@@ -68,7 +68,7 @@ public class TwitterInfluentialDriver {
 
 		finalJob.setMapOutputKeyClass(Text.class);
 		finalJob.setMapOutputValueClass(IntWritable.class);
-		finalJob.setJarByClass(TwitterInfluentialDriver.class);
+		finalJob.setJarByClass(TwitterInfluentialRetweetCountDriver.class);
 
 		finalJob.setNumReduceTasks(1);
 		

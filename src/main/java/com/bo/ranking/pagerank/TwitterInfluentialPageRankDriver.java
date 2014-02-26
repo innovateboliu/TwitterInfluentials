@@ -14,7 +14,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class TwitterInfluentialNetworkDriver {
+public class TwitterInfluentialPageRankDriver {
 	
 	public static void main(String[] args) throws Exception {
 		if (args.length != 3) {
@@ -25,7 +25,7 @@ public class TwitterInfluentialNetworkDriver {
 		Job initialJob = Job.getInstance();
 		
 		initialJob.addCacheFile(new URI("/user/hduser/twitter/influential/topnames"));
-		initialJob.setJarByClass(TwitterInfluentialNetworkDriver.class);
+		initialJob.setJarByClass(TwitterInfluentialPageRankDriver.class);
 		
 		initialJob.setOutputKeyClass(NameScoreKey.class);
 		initialJob.setOutputValueClass(Text.class);
@@ -58,7 +58,7 @@ public class TwitterInfluentialNetworkDriver {
 
 			iterativeJob.setMapperClass(NetworkRankMapper.class);
 			iterativeJob.setReducerClass(NetworkRankReducer.class);
-			iterativeJob.setJarByClass(TwitterInfluentialNetworkDriver.class);
+			iterativeJob.setJarByClass(TwitterInfluentialPageRankDriver.class);
 			
 			Path in = new Path("twitter/influential/ranking/iteration_" + (iteration - 1) + "/");
 			Path out = new Path("twitter/influential/ranking/iteration_" + iteration);
