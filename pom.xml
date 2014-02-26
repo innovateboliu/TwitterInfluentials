@@ -1,131 +1,147 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.bo</groupId>
-  <artifactId>bigdata-twitter-influential</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<groupId>com.bo</groupId>
+	<artifactId>bigdata-twitter-influential</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <name>bigdata-twitter-influential</name>
-  <url>http://maven.apache.org</url>
+	<name>bigdata-twitter-influential</name>
+	<url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-<repositories>
-  <repository>
-    <id>my-local-repo</id>
-    <url>file://${basedir}/my-repo</url>
-  </repository>
-</repositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<repositories>
+		<repository>
+			<id>my-local-repo</id>
+			<url>file://${basedir}/my-repo</url>
+		</repository>
+	</repositories>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
 
-<dependency>
-    <groupId>org.apache</groupId>
-    <artifactId>hadoop</artifactId>
-    <version>2.2.0</version>
-    <scope>system</scope>
-    <systemPath>/var/hduser/hadoop/share/hadoop/common/hadoop-common-2.2.0.jar</systemPath>
-</dependency>
+		<dependency>
+			<groupId>org.apache</groupId>
+			<artifactId>hadoop</artifactId>
+			<version>2.2.0</version>
+			<scope>system</scope>
+			<systemPath>/var/hduser/hadoop/share/hadoop/common/hadoop-common-2.2.0.jar</systemPath>
+		</dependency>
 
-<dependency>
-	<groupId>org.twitter4j</groupId>
-	<artifactId>twitter4j-core</artifactId>
-	<version>3.0.5</version>
-</dependency>
-            
-<dependency>
-	<groupId>com.google.code.gson</groupId>
-	<artifactId>gson</artifactId>
-	<version>2.2.4</version>
-</dependency>
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>3.0.5</version>
+		</dependency>
 
-  </dependencies>
-            
-<build>
-            <plugins>
-                <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
-                    <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
-                    </configuration>
-                </plugin>
-<plugin>
-    <groupId>com.googlecode.addjars-maven-plugin</groupId>
-    <artifactId>addjars-maven-plugin</artifactId>
-    <version>1.0.5</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>add-jars</goal>
-            </goals>
-            <configuration>
-                <resources>
-                    <resource>
-                        <directory>/var/hduser/hadoop/share/hadoop/common/hadoop-common-2.2.0.jar</directory>
-                    </resource>
-                    <resource>
-                        <directory>/var/hduser/hadoop/share/hadoop/mapreduce/</directory>
-                    </resource>
-                </resources>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-   <plugin>
-      <artifactId>maven-assembly-plugin</artifactId>
-      <configuration>
-        <descriptorRefs>
-          <descriptorRef>jar-with-dependencies</descriptorRef>
-        </descriptorRefs>
-      </configuration>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
 
-      <executions>
-      <execution>
-      <id>influentials-ranker</id>
-      <phase>package</phase>
-      <configuration>
-        <archive>
-          <manifest>
-            <mainClass>ranking.retweetcount.TwitterInfluentialRetweetCountDriver</mainClass>
-          </manifest>
-        </archive>
-        <descriptorRefs>
-          <descriptorRef>jar-with-dependencies</descriptorRef>
-        </descriptorRefs>
-	<finalName>ranker.jar</finalName>
-      </configuration>
-      </execution>
+	</dependencies>
 
-      <execution>
-      <id>influentials-graph</id>
-      <phase>package</phase>
-      <configuration>
-        <archive>
-          <manifest>
-            <mainClass>ranking.pagerank.TwitterInfluentialPageRankDriver</mainClass>
-          </manifest>
-        </archive>
-        <descriptorRefs>
-          <descriptorRef>jar-with-dependencies</descriptorRef>
-        </descriptorRefs>
-	<finalName>graph.jar</finalName>
-      </configuration>
-      </execution>
-      </executions>
-    </plugin>
-    </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.googlecode.addjars-maven-plugin</groupId>
+				<artifactId>addjars-maven-plugin</artifactId>
+				<version>1.0.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>add-jars</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>/var/hduser/hadoop/share/hadoop/common/hadoop-common-2.2.0.jar</directory>
+								</resource>
+								<resource>
+									<directory>/var/hduser/hadoop/share/hadoop/mapreduce/</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>influentials-retweet-count-ranker</id>
+						<phase>package</phase>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>ranking.retweetcount.TwitterInfluentialRetweetCountDriver</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>RetweetCountRanker.jar</finalName>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>influentials-pagerank-ranker</id>
+						<phase>package</phase>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>ranking.pagerank.TwitterInfluentialPageRankDriver</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>PageRanker.jar</finalName>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>influentials-graph-builder</id>
+						<phase>package</phase>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>ranking.pagerank.TwitterInfluentialGraphBuildingDriver</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>GraphBuilder.jar</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
