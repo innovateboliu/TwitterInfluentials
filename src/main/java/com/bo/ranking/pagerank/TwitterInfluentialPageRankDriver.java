@@ -30,8 +30,8 @@ public class TwitterInfluentialPageRankDriver {
 		initialJob.setOutputKeyClass(NameScoreKey.class);
 		initialJob.setOutputValueClass(Text.class);
 
-		initialJob.setMapperClass(NetworkContructionMapper.class);
-		initialJob.setReducerClass(NetworkContructionReducer.class);
+		initialJob.setMapperClass(GraphContructionMapper.class);
+		initialJob.setReducerClass(GraphContructionReducer.class);
 
 		initialJob.setInputFormatClass(TextInputFormat.class);
 		initialJob.setOutputFormatClass(TextOutputFormat.class);
@@ -56,8 +56,8 @@ public class TwitterInfluentialPageRankDriver {
 			Job iterativeJob = Job.getInstance(conf);
 			iterativeJob.setJobName("Graph ranking " + iteration);
 
-			iterativeJob.setMapperClass(NetworkRankMapper.class);
-			iterativeJob.setReducerClass(NetworkRankReducer.class);
+			iterativeJob.setMapperClass(PageRankMapper.class);
+			iterativeJob.setReducerClass(PageRankReducer.class);
 			iterativeJob.setJarByClass(TwitterInfluentialPageRankDriver.class);
 			
 			Path in = new Path("twitter/influential/ranking/iteration_" + (iteration - 1) + "/");

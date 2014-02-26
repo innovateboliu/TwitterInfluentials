@@ -7,7 +7,7 @@ import java.util.Set;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class NetworkContructionReducer extends Reducer<Text, Text, NameScoreKey, Text>{
+public class GraphContructionReducer extends Reducer<Text, Text, NameScoreKey, Text>{
 	
 	private Set<String> set;
 	

@@ -19,7 +19,7 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.json.DataObjectFactory;
 
-public class NetworkContructionMapper extends Mapper<LongWritable, Text, Text, Text>{
+public class GraphContructionMapper extends Mapper<LongWritable, Text, Text, Text>{
 	
 	private Set<String> desiredScreenNames = new HashSet<String>();
 	
