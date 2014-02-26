@@ -87,9 +87,9 @@ public class TwitterInfluentialPageRankDriver {
 	private static boolean isConvergent() {
 		if (round > 0) {
 			round--;
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 }
 
