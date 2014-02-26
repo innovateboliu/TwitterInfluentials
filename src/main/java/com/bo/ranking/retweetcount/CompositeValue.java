@@ -1,4 +1,4 @@
-package com.bo.ranking.count;
+package com.bo.ranking.retweetcount;
 
 import java.io.DataInput;
 import java.io.DataOutput;

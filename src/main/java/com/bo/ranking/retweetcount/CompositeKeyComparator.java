@@ -1,10 +1,10 @@
-package com.bo.ranking.count;
+package com.bo.ranking.retweetcount;
 
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
-public class  CompositeKeyGroupingComparator extends WritableComparator {
-	protected CompositeKeyGroupingComparator() {
+public class CompositeKeyComparator extends WritableComparator {
+	protected CompositeKeyComparator() {
 		super(CompositeKey.class, true);
 	}
 	@Override
@@ -12,6 +12,10 @@ public class  CompositeKeyGroupingComparator extends WritableComparator {
 		CompositeKey a = (CompositeKey)l;
 		CompositeKey b = (CompositeKey)r;
 		
-		return a.pair.first.compareTo(b.pair.first);
+		int diff = a.pair.first.compareTo(b.pair.first);
+		if (diff != 0) {
+			return diff;
+		}
+		return b.pair.second.compareTo(a.pair.second);
 	}
 }

@@ -1,4 +1,4 @@
-package com.bo.ranking.count;
+package com.bo.ranking.retweetcount;
 
 import java.io.IOException;
 import java.util.Comparator;

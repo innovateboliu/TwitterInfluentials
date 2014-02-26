@@ -1,4 +1,4 @@
-package com.bo.ranking.network;
+package com.bo.ranking.pagerank;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
