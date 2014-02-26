@@ -38,7 +38,7 @@ public class TwitterInfluentialPageRankDriver {
 		initialJob.setMapOutputKeyClass(Text.class);
 		initialJob.setMapOutputValueClass(Text.class);
 		
-		FileInputFormat.setInputPaths(initialJob, new Path("twitter/influential/Flume*"));
+		FileInputFormat.setInputPaths(initialJob, new Path("twitter/Flume*"));
 		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/pagerank/iteration_0"));
 		
 		boolean b = initialJob.waitForCompletion(true);
