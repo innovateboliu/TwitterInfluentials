@@ -4,23 +4,22 @@ import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 public class TwitterInfluentialPageRankDriver {
 	
+	private static int round = 1;
+	
 	public static void main(String[] args) throws Exception {
-		if (args.length != 3) {
-			System.out.println("usage: [cachedFile] [input] [output]");
-			System.exit(-1);
-		}
+//		if (args.length != 2) {
+//			System.out.println("usage: [input] [output]");
+//			System.exit(-1);
+//		}
 
 		Job initialJob = Job.getInstance();
 		
@@ -39,8 +38,8 @@ public class TwitterInfluentialPageRankDriver {
 		initialJob.setMapOutputKeyClass(Text.class);
 		initialJob.setMapOutputValueClass(Text.class);
 		
-		FileInputFormat.setInputPaths(initialJob, new Path(args[0]));
-		FileOutputFormat.setOutputPath(initialJob, new Path(args[1]));
+		FileInputFormat.setInputPaths(initialJob, new Path("twitter/influential/Flume*"));
+		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/ranking/iteration_0"));
 		
 		boolean b = initialJob.waitForCompletion(true);
 		if (!b) {
@@ -60,7 +59,7 @@ public class TwitterInfluentialPageRankDriver {
 			iterativeJob.setReducerClass(PageRankReducer.class);
 			iterativeJob.setJarByClass(TwitterInfluentialPageRankDriver.class);
 			
-			Path in = new Path("twitter/influential/ranking/iteration_" + (iteration - 1) + "/");
+			Path in = new Path("twitter/influential/ranking/iteration_" + (iteration - 1) + "/part*");
 			Path out = new Path("twitter/influential/ranking/iteration_" + iteration);
 
 			iterativeJob.setInputFormatClass(TextInputFormat.class);
@@ -86,6 +85,10 @@ public class TwitterInfluentialPageRankDriver {
 	
 	//TODO: to implement proper convergence check
 	private static boolean isConvergent() {
+		if (round > 0) {
+			round--;
+			return true;
+		}
 		return false;
 	}
 }
