@@ -8,6 +8,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 public class TwitterInfluentialGraphBuildingDriver {
@@ -36,8 +37,10 @@ public class TwitterInfluentialGraphBuildingDriver {
 		initialJob.setMapOutputValueClass(Text.class);
 		
 		FileInputFormat.setInputPaths(initialJob, new Path("twitter/Flume*"));
-		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/pagerank/iteration_0"));
+		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/pagerank/graph"));
 		
+		MultipleOutputs.addNamedOutput(initialJob, "graph", TextOutputFormat.class, Text.class, Text.class);
+		MultipleOutputs.addNamedOutput(initialJob, "weight", TextOutputFormat.class, Text.class, Text.class);
 		boolean b = initialJob.waitForCompletion(true);
 		if (!b) {
 			throw new IOException("error with job!");

@@ -6,14 +6,18 @@ import java.util.Set;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 
-public class GraphContructionReducer extends Reducer<Text, Text, NameScoreKey, Text>{
+public class GraphContructionReducer extends Reducer<Text, Text, Text, Text>{
 	
 	private Set<String> set;
+	
+	MultipleOutputs<Text, Text> output;
 	
 	@Override
 	public void setup(Context context) {
 		set = new HashSet<String>();
+		output = new MultipleOutputs(context);
 	}
 	
 	@Override
@@ -28,14 +32,10 @@ public class GraphContructionReducer extends Reducer<Text, Text, NameScoreKey, T
 			to.append(",").append(str);
 		}
 		
-//		if (neighbors.length() > 0) {
-//			neighbors.deleteCharAt(neighbors.length()-1);
-//		}
-//		
-//		to.insert(0, ":1");
+//		context.write(new NameScoreKey(key.toString(), 1), new Text(to.toString()));
 		
-		
-		context.write(new NameScoreKey(key.toString(), 1), new Text(to.toString()));
+		output.write("graph", key, new Text(to.toString()));
+		output.write("weight", key, new Text("1"));
 	}
 	
 	@Override

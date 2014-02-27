@@ -7,8 +7,13 @@ hadoop jar target/bigdata-twitter-influential-1.0-SNAPSHOT-jar-with-dependencies
 
 hadoop dfs -get twitter/influential/output .
 
-hadoop dfs -rm -r twitter/influential/pagerank/iteration*
+------------------------------------------------------------------
+hadoop dfs -rm -r twitter/influential/pagerank/iteration_0
 
+hadoop jar target/bigdata-twitter-influential-1.0-SNAPSHOT-jar-with-dependencies.jar ranking.pagerank.TwitterInfluentialGraphBuildingDriver 
+
+------------------------------------------------------------------
+hadoop dfs -rm -r twitter/influential/pagerank/iteration_1
 
 hadoop jar target/bigdata-twitter-influential-1.0-SNAPSHOT-jar-with-dependencies.jar ranking.pagerank.TwitterInfluentialPageRankDriver 
 
