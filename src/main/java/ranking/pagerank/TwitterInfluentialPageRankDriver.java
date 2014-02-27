@@ -5,10 +5,17 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+
+import Utils.SecondaryComparator;
+import Utils.SecondaryGroupComparator;
+import Utils.SecondaryPartitioner;
+import ranking.retweetcount.CompositeKeyComparator;
+import ranking.retweetcount.CompositeKeyGroupingComparator;
+import ranking.retweetcount.CompositeKeyPartitioner;
 
 public class TwitterInfluentialPageRankDriver {
 	
@@ -22,29 +29,34 @@ public class TwitterInfluentialPageRankDriver {
 			conf = new Configuration();
 			conf.set("recursion.depth", iteration + "");
 			
-			Job iterativeJob = Job.getInstance(conf);
-			iterativeJob.setJobName("Graph ranking " + iteration);
+			Job job = Job.getInstance(conf);
+			job.setJobName("Graph ranking " + iteration);
 
-			iterativeJob.setMapperClass(PageRankMapper.class);
-			iterativeJob.setReducerClass(PageRankReducer.class);
-			iterativeJob.setJarByClass(TwitterInfluentialPageRankDriver.class);
+			job.setMapperClass(PageRankMapper.class);
+			job.setReducerClass(PageRankReducer.class);
+			job.setJarByClass(TwitterInfluentialPageRankDriver.class);
 			
-			Path in = new Path("twitter/influential/pagerank/iteration_" + (iteration - 1) + "/part*");
+			Path graphPath = new Path("twitter/influential/pagerank/graph/graph*");
+			Path weightPath = new Path("twitter/influential/pagerank/iteration_" + (iteration - 1) + "/weight*");
 			Path out = new Path("twitter/influential/pagerank/iteration_" + iteration);
 
-			iterativeJob.setInputFormatClass(TextInputFormat.class);
-			iterativeJob.setOutputFormatClass(TextOutputFormat.class);
+			job.setOutputFormatClass(TextOutputFormat.class);
 			
-			iterativeJob.setMapOutputKeyClass(Text.class);
-			iterativeJob.setMapOutputValueClass(Text.class);
+			job.setMapOutputKeyClass(Text.class);
+			job.setMapOutputValueClass(Text.class);
 			
-			iterativeJob.setOutputKeyClass(Text.class);
-			iterativeJob.setOutputValueClass(Text.class);
+			job.setOutputKeyClass(Text.class);
+			job.setOutputValueClass(Text.class);
+			
+			job.setPartitionerClass(SecondaryPartitioner.class);
+			job.setGroupingComparatorClass(SecondaryGroupComparator.class);
+			job.setSortComparatorClass(SecondaryComparator.class);
 
-			FileInputFormat.setInputPaths(iterativeJob, in);
-			FileOutputFormat.setOutputPath(iterativeJob, out);
+			MultipleInputs.addInputPath(job, graphPath, TextInputFormat.class);
+			MultipleInputs.addInputPath(job, weightPath, TextInputFormat.class);
+			FileOutputFormat.setOutputPath(job, out);
 			
-			boolean b = iterativeJob.waitForCompletion(true);
+			boolean b = job.waitForCompletion(true);
 			if (!b) {
 				throw new IOException("error with job!");
 			}

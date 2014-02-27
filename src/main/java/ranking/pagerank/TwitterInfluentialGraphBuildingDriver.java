@@ -19,29 +19,29 @@ public class TwitterInfluentialGraphBuildingDriver {
 //			System.exit(-1);
 //		}
 
-		Job initialJob = Job.getInstance();
+		Job job = Job.getInstance();
 		
-		initialJob.addCacheFile(new URI("/user/hduser/twitter/influential/topnames"));
-		initialJob.setJarByClass(TwitterInfluentialGraphBuildingDriver.class);
+		job.addCacheFile(new URI("/user/hduser/twitter/influential/topnames"));
+		job.setJarByClass(TwitterInfluentialGraphBuildingDriver.class);
 		
-		initialJob.setOutputKeyClass(NameScoreKey.class);
-		initialJob.setOutputValueClass(Text.class);
+		job.setOutputKeyClass(NameScoreKey.class);
+		job.setOutputValueClass(Text.class);
 
-		initialJob.setMapperClass(GraphContructionMapper.class);
-		initialJob.setReducerClass(GraphContructionReducer.class);
+		job.setMapperClass(GraphContructionMapper.class);
+		job.setReducerClass(GraphContructionReducer.class);
 
-		initialJob.setInputFormatClass(TextInputFormat.class);
-		initialJob.setOutputFormatClass(TextOutputFormat.class);
+		job.setInputFormatClass(TextInputFormat.class);
+		job.setOutputFormatClass(TextOutputFormat.class);
 		
-		initialJob.setMapOutputKeyClass(Text.class);
-		initialJob.setMapOutputValueClass(Text.class);
+		job.setMapOutputKeyClass(Text.class);
+		job.setMapOutputValueClass(Text.class);
 		
-		FileInputFormat.setInputPaths(initialJob, new Path("twitter/Flume*"));
-		FileOutputFormat.setOutputPath(initialJob, new Path("twitter/influential/pagerank/graph"));
+		FileInputFormat.setInputPaths(job, new Path("twitter/Flume*"));
+		FileOutputFormat.setOutputPath(job, new Path("twitter/influential/pagerank/graph"));
 		
-		MultipleOutputs.addNamedOutput(initialJob, "graph", TextOutputFormat.class, Text.class, Text.class);
-		MultipleOutputs.addNamedOutput(initialJob, "weight", TextOutputFormat.class, Text.class, Text.class);
-		boolean b = initialJob.waitForCompletion(true);
+		MultipleOutputs.addNamedOutput(job, "graph", TextOutputFormat.class, Text.class, Text.class);
+		MultipleOutputs.addNamedOutput(job, "weight", TextOutputFormat.class, Text.class, Text.class);
+		boolean b = job.waitForCompletion(true);
 		if (!b) {
 			throw new IOException("error with job!");
 		}
